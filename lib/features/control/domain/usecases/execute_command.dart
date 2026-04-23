@@ -1,3 +1,5 @@
+import 'package:controlx/core/error/result.dart';
+
 import '../repositories/device_repository.dart';
 
 class ExecuteCommand {
@@ -5,7 +7,7 @@ class ExecuteCommand {
 
   ExecuteCommand(this.repository);
 
-  Future<String> call(String ip, String action) async {
+  Future<Result<String>> call(String ip, String action) async {
     return await repository.executeCommand(ip, action);
   }
 }

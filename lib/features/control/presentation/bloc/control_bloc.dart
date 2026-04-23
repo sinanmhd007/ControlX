@@ -45,8 +45,12 @@ class ControlBloc extends Bloc<ControlEvent, ControlState> {
         (info) => add(SystemInfoUpdatedEvent(info)),
       );
       
-      final info = await getSystemInfo(event.ip);
-      emit(ControlConnected(systemInfo: info, lastMessage: null));
+      final result = await getSystemInfo(event.ip);
+      if (result.isSuccess) {
+        emit(ControlConnected(systemInfo: result.data!, lastMessage: null));
+      } else {
+        emit(ControlError(result.failure?.message ?? 'Failed to get system info'));
+      }
     } catch (e) {
       emit(ControlError(e.toString().replaceAll('Exception: ', '')));
     }
@@ -66,8 +70,12 @@ class ControlBloc extends Bloc<ControlEvent, ControlState> {
   Future<void> _onRefreshSystemInfo(RefreshSystemInfoEvent event, Emitter<ControlState> emit) async {
     if (state is ControlConnected) {
       try {
-        final info = await getSystemInfo(event.ip);
-        emit(ControlConnected(systemInfo: info, lastMessage: null));
+        final result = await getSystemInfo(event.ip);
+        if (result.isSuccess) {
+          emit(ControlConnected(systemInfo: result.data!, lastMessage: null));
+        } else {
+          emit(ControlError(result.failure?.message ?? 'Refresh failed'));
+        }
       } catch (e) {
         emit(ControlError(e.toString().replaceAll('Exception: ', '')));
       }
@@ -79,8 +87,12 @@ class ControlBloc extends Bloc<ControlEvent, ControlState> {
       final previousState = state as ControlConnected;
       emit(ControlCommandLoading(previousState.systemInfo));
       try {
-        final msg = await executeCommand(event.ip, event.action);
-        emit(ControlConnected(systemInfo: previousState.systemInfo, lastMessage: 'Success: $msg'));
+        final result = await executeCommand(event.ip, event.action);
+        if (result.isSuccess) {
+          emit(ControlConnected(systemInfo: previousState.systemInfo, lastMessage: 'Success: ${result.data}'));
+        } else {
+          throw Exception(result.failure?.message ?? 'Command failed');
+        }
       } catch (e) {
         emit(ControlErrorCommandFailed(
           systemInfo: previousState.systemInfo,

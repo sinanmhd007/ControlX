@@ -69,7 +69,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DisconnectSocket(sl()));
 
   sl.registerLazySingleton<DeviceRepository>(
-    () => DeviceRepositoryImpl(remoteDataSource: sl()),
+    () => DeviceRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()),
+    
   );
 
   sl.registerLazySingleton<DeviceRemoteDataSource>(

@@ -1,3 +1,5 @@
+import 'package:controlx/core/error/result.dart';
+
 import '../repositories/device_repository.dart';
 
 class PairDevice {
@@ -5,7 +7,7 @@ class PairDevice {
 
   PairDevice(this.repository);
 
-  Future<void> call(String ip, String pin) async {
+  Future<Result<void>> call(String ip, String pin) async {
     return await repository.pairDevice(ip, pin);
   }
 }
