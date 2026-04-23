@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "815477261689",
+    "project_id": "controlx-11a84",
+    "storage_bucket": "controlx-11a84.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815477261689:android:6ab566cf54db51bb785ba8",
+        "android_client_info": {
+          "package_name": "com.example.controlx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815477261689-4as78pseoo0h1rqii8a37bisiplq27h6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.controlx",
+            "certificate_hash": "1f9c4c65e0158449176b7495d0c2fb7daded95dd"
+          }
+        },
+        {
+          "client_id": "815477261689-bkearrn5ghd9p18bc4nojcstovedk6nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0TxN8xL-KMgEJ8vFMG41J9q4AdcZLKcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815477261689-bkearrn5ghd9p18bc4nojcstovedk6nn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "815477261689-tkbn54nt0kcb6rn5o2bl11clio0r2gog.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.controlx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
