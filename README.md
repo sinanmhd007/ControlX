@@ -1,17 +1,85 @@
-# controlx
+# ControlX
 
-A new Flutter project.
+## Overview
+ControlX is a Flutter-based mobile application that allows users to remotely control their laptop over a local network. The app communicates with a Node.js server running on the laptop to execute system commands and retrieve real-time system information. It is built using Clean Architecture with BLoC for scalable and maintainable development.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Features
+- Authentication using Firebase Authentication  
+- Secure device connection over local network (LAN)  
+- Remote command execution (open apps, shutdown, restart, lock screen)  
+- Real-time connection and system updates using WebSockets  
+- System monitoring (CPU, RAM, OS info)  
+- Clean Architecture with modular structure  
+- Responsive UI using Material 3  
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Tech Stack
+
+### Frontend
+- Flutter  
+- flutter_bloc (State Management)  
+- Dio (API communication)  
+- socket_io_client (Real-time communication)  
+- Firebase Authentication (Google Sign-In)  
+
+### Backend
+- Node.js  
+- Express.js  
+- Socket.io  
+- child_process (system command execution)  
+- os module (system information)  
+
+---
+
+## Project Structure
+```text
+lib/
+├── core/
+├── features/
+│ └── control/
+│ ├── data/
+│ ├── domain/
+│ └── presentation/
+├── injection_container.dart
+└── main.dart
+```
+
+
+---
+
+## Workflow
+1. Start the Node.js server on the laptop.  
+2. Connect mobile and laptop to the same WiFi network.  
+3. Login using Firebase Sign-In.  
+4. Enter the laptop IP address and establish connection.  
+5. Send commands from the mobile app.  
+6. Node.js server executes commands on the laptop.  
+7. Real-time system data is sent back and displayed in the app.  
+
+---
+
+## Setup Instructions
+
+### Backend (Node.js)
+```bash
+cd Backend
+npm install
+node server.js
+```
+
+### Frontend
+```bash
+flutter pub get
+flutter run
+```
+
+---
+
+## Development
+Control X uses the `dev` branch for active feature development and `main` for stable releases.
