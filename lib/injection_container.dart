@@ -1,4 +1,6 @@
+import 'package:controlx/core/network/network_info.dart';
 import 'package:dio/dio.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -21,13 +23,15 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // --- Auth Features ---
-  
-  sl.registerFactory(() => AuthBloc(
-        loginWithEmailAndPassword: sl(),
-        signUpWithEmailAndPassword: sl(),
-        logout: sl(),
-        getUserStream: sl(),
-      ));
+
+  sl.registerFactory(
+    () => AuthBloc(
+      loginWithEmailAndPassword: sl(),
+      signUpWithEmailAndPassword: sl(),
+      logout: sl(),
+      getUserStream: sl(),
+    ),
+  );
 
   sl.registerLazySingleton(() => LoginWithEmailAndPassword(sl()));
   sl.registerLazySingleton(() => SignUpWithEmailAndPassword(sl()));
@@ -35,23 +39,17 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetUserStream(sl()));
 
   sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      remoteDataSource: sl(),
-      networkInfo: sl()
-    ),
+    () => AuthRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(
-      firebaseAuth: sl(),
-    ),
+    () => AuthRemoteDataSourceImpl(firebaseAuth: sl()),
   );
 
   sl.registerLazySingleton(() => FirebaseAuth.instance);
 
-
   // --- Control Features ---
-  
+
   sl.registerFactory(
     () => ControlBloc(
       pairDevice: sl(),
@@ -70,17 +68,21 @@ Future<void> init() async {
 
   sl.registerLazySingleton<DeviceRepository>(
     () => DeviceRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()),
-    
   );
 
   sl.registerLazySingleton<DeviceRemoteDataSource>(
     () => DeviceRemoteDataSourceImpl(client: sl()),
   );
 
-  sl.registerLazySingleton(() => Dio(
-        BaseOptions(
-          connectTimeout: const Duration(seconds: 5),
-          receiveTimeout: const Duration(seconds: 5),
-        ),
-      ));
+  sl.registerLazySingleton(
+    () => Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 5),
+        receiveTimeout: const Duration(seconds: 5),
+      ),
+    ),
+  );
+
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton(() => InternetConnectionChecker.instance);
 }

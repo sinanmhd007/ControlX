@@ -244,7 +244,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           title: 'File Explorer', 
                           icon: Icons.storage, 
                           color: Colors.pink, 
-                          endpointAction: 'file_explorer', 
+                          endpointAction: 'open_explorer', 
                           deviceIp: widget.deviceIp
                         ),
                        

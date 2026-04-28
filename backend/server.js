@@ -106,10 +106,8 @@ app.post('/command', authenticate, (req, res) => {
   } else if (action === 'open_vscode') {
   cmd = 'code';
   
-  } else if (action === 'file_explorer') {
-  cmd = process.platform === 'win32'
-    ? 'start .'
-    : 'xdg-open .';
+  }  else if (action === 'open_explorer') {
+  cmd = process.platform === 'win32' ? 'explorer' : 'nautilus';
 }
   
   else if (action === 'restart') {
