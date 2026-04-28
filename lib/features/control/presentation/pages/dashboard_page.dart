@@ -58,12 +58,8 @@ class _DashboardPageState extends State<DashboardPage> {
       body: BlocConsumer<ControlBloc, ControlState>(
         listener: (context, state) {
           if (state is ControlConnected && state.lastMessage != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.lastMessage!),
-                backgroundColor: Colors.green,
-              ),
-            );
+            return;
+            
           } else if (state is ControlError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -241,13 +237,13 @@ class _DashboardPageState extends State<DashboardPage> {
                           deviceIp: widget.deviceIp,
                         ),
                         BuiltActionCard(
-                          title: 'File Explorer', 
-                          icon: Icons.storage, 
-                          color: Colors.pink, 
-                          endpointAction: 'open_explorer', 
-                          deviceIp: widget.deviceIp
+                          title: 'File Explorer',
+                          icon: Icons.storage,
+                          color: Colors.pink,
+                          endpointAction: 'open_explorer',
+                          deviceIp: widget.deviceIp,
                         ),
-                       
+
                         BuiltActionCard(
                           title: 'Restart',
                           icon: Icons.restart_alt,

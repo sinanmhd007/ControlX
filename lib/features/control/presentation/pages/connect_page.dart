@@ -10,7 +10,9 @@ class ConnectPage extends StatefulWidget {
 }
 
 class _ConnectPageState extends State<ConnectPage> {
-  final _ipController = TextEditingController(text: '192.168.1.0'); // Localhost for emulator
+  final _ipController = TextEditingController(
+    text: '192.168.1.0',
+  ); // Localhost for emulator
   final _codeController = TextEditingController();
 
   @override
@@ -36,7 +38,11 @@ class _ConnectPageState extends State<ConnectPage> {
             GlassCard(
               child: Column(
                 children: [
-                  const Icon(Icons.wifi_tethering, size: 64, color: Colors.blueAccent),
+                  const Icon(
+                    Icons.wifi_tethering,
+                    size: 64,
+                    color: Colors.blueAccent,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     'Local Network Connection',
@@ -59,14 +65,16 @@ class _ConnectPageState extends State<ConnectPage> {
                 hintText: 'e.g. 192.168.1.100',
                 prefixIcon: Icon(Icons.router),
               ),
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
             ),
             const SizedBox(height: 20),
             TextField(
               controller: _codeController,
               decoration: const InputDecoration(
                 labelText: 'Pairing Code',
-                hintText: 'Enter 6-digit code (Leave empty if already paired)',
+                hintText: 'Enter 6-digit code',
                 prefixIcon: Icon(Icons.key),
               ),
               keyboardType: TextInputType.number,
@@ -76,7 +84,7 @@ class _ConnectPageState extends State<ConnectPage> {
               onPressed: () {
                 final ip = _ipController.text.trim();
                 final pin = _codeController.text.trim();
-                
+
                 if (ip.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Please enter an IP address')),
@@ -84,7 +92,9 @@ class _ConnectPageState extends State<ConnectPage> {
                   return;
                 }
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => DashboardPage(deviceIp: ip, devicePin: pin)),
+                  MaterialPageRoute(
+                    builder: (_) => DashboardPage(deviceIp: ip, devicePin: pin),
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
