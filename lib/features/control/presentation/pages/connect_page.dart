@@ -10,7 +10,7 @@ class ConnectPage extends StatefulWidget {
 }
 
 class _ConnectPageState extends State<ConnectPage> {
-  final _ipController = TextEditingController(text: '10.0.2.2'); // Localhost for emulator
+  final _ipController = TextEditingController(text: '192.168.1.0'); // Localhost for emulator
   final _codeController = TextEditingController();
 
   @override
