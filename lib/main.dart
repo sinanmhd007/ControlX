@@ -9,13 +9,13 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   try {
     await Firebase.initializeApp();
   } catch (e) {
     debugPrint('Firebase not configured. Please run flutterfire configure: $e');
   }
-  
+
   await di.init();
   runApp(const ControlXApp());
 }
