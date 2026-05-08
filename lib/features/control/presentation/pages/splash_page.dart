@@ -1,8 +1,11 @@
 import 'package:controlx/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/presentation/widgets/responsive_layout.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import 'connect_page.dart';
+import 'mobile/splash_mobile.dart';
+import 'web/splash_web.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -64,51 +67,11 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
         _checkAndNavigate(state);
       },
       child: Scaffold(
-        body: Center(
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Theme.of(context).primaryColor, Theme.of(context).colorScheme.secondary],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).primaryColor.withValues(alpha: .5),
-                        blurRadius: 30,
-                        spreadRadius: 5,
-                      )
-                    ]
-                  ),
-                  child: const Icon(Icons.computer, size: 50, color: Colors.white),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'ControlX',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Remote Laptop Manager',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
+        body: ResponsiveLayout(
+          mobileBody: SplashMobile(fadeAnimation: _fadeAnimation),
+          webBody: SplashWeb(fadeAnimation: _fadeAnimation),
         ),
       ),
     );
   }
 }
-
