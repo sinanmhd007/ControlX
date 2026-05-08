@@ -9,13 +9,13 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  
   try {
     await Firebase.initializeApp();
   } catch (e) {
     debugPrint('Firebase not configured. Please run flutterfire configure: $e');
   }
-
+  
   await di.init();
   runApp(const ControlXApp());
 }
@@ -34,7 +34,38 @@ class ControlXApp extends StatelessWidget {
         title: 'ControlX',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.darkTheme,
-        home: const SplashPage(),
+        home: const _MobileFrame(),  // <-- changed
+      ),
+    );
+  }
+}
+
+class _MobileFrame extends StatelessWidget {
+  const _MobileFrame();
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isWeb = MediaQuery.of(context).size.width > 500;
+
+    if (!isWeb) {
+      // On actual mobile — show normally
+      return const SplashPage();
+    }
+
+    // On web/desktop — show inside a centered mobile frame
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: 430,
+            maxHeight: 932,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(40),
+            child: const SplashPage(),
+          ),
+        ),
       ),
     );
   }
